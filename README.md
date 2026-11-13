@@ -3,7 +3,7 @@
 **CS344 Web Engineering, Assignment 1 (client-side web application)**
 Assigned idea: **#32, Campus Conference Scheduler**: session proposals, track/room capacity, schedule conflict detection, attendee registration and change notifications.
 
-**Live app:** https://YOUR-USERNAME.github.io/YOUR-REPO/
+**Live app:** https://talharich.github.io/web-engg-assignment-1/
 
 ## Run it
 No build step and no dependencies.
