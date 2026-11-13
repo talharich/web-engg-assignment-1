@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Campus Conference Scheduler</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho+B1:wght@800&family=Zen+Kaku+Gothic+New:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <a class="skip" href="#schedule">Skip to schedule</a>
+  <header class="site-header">
+    <h1>Campus Conference Scheduler</h1>
+    <p>Propose sessions, avoid room and speaker clashes, register for talks and see what changed.</p>
+    <p id="summary" class="summary"></p>
+  </header>
+
+  <main class="layout">
+    <section id="schedule" aria-labelledby="schedule-h">
+      <h2 id="schedule-h">Conference programme</h2>
+      <form id="filterForm" class="filters" role="search" aria-label="Filter sessions">
+        <div class="field">
+          <label for="search">Search title or speaker</label>
+          <input id="search" type="search" placeholder="e.g. security">
+        </div>
+        <div class="field">
+          <label for="trackFilter">Track</label>
+          <select id="trackFilter"><option value="">All tracks</option></select>
+        </div>
+        <div class="field">
+          <label for="dayFilter">Day</label>
+          <select id="dayFilter">
+            <option value="">Both days</option>
+            <option value="1">Thu 12 Nov (Day 1)</option>
+            <option value="2">Fri 13 Nov (Day 2)</option>
+          </select>
+        </div>
+      </form>
+      <p id="resultCount" class="count" aria-live="polite"></p>
+      <p id="scheduleMsg" class="msg" role="status" tabindex="-1"></p>
+      <div id="sessionList"></div>
+      <p id="emptyMsg" class="empty" hidden>No sessions match those filters. Clear the search or choose another track.</p>
+    </section>
+
+    <aside class="side" aria-label="Forms and updates">
+      <section aria-labelledby="propose-h" class="panel">
+        <h2 id="propose-h">Propose a session</h2>
+        <form id="proposeForm">
+          <div class="field"><label for="title">Session title</label>
+            <input id="title" name="title" required minlength="5" maxlength="80"></div>
+          <div class="field"><label for="speaker">Speaker</label>
+            <input id="speaker" name="speaker" required minlength="3" maxlength="50"></div>
+          <div class="row">
+            <div class="field"><label for="track">Track</label><select id="track" name="track" required></select></div>
+            <div class="field"><label for="room">Room</label><select id="room" name="room" required></select></div>
+          </div>
+          <div class="row">
+            <div class="field"><label for="day">Day</label>
+              <select id="day" name="day" required>
+                <option value="1">Thu 12 Nov</option><option value="2">Fri 13 Nov</option>
+              </select></div>
+            <div class="field"><label for="expected">Expected attendees</label>
+              <input id="expected" name="expected" type="number" min="1" max="500" required></div>
+          </div>
+          <div class="row">
+            <div class="field"><label for="start">Start</label>
+              <select id="start" name="start" required></select></div>
+            <div class="field"><label for="end">End</label>
+              <select id="end" name="end" required></select></div>
+          </div>
+          <button type="submit">Submit proposal</button>
+          <p id="proposeMsg" class="msg" role="status"></p>
+        </form>
+      </section>
+
+      <section aria-labelledby="reg-h" class="panel">
+        <h2 id="reg-h">Register to attend</h2>
+        <form id="registerForm">
+          <div class="field"><label for="name">Full name</label>
+            <input id="name" name="name" required minlength="3" autocomplete="name"></div>
+          <div class="field"><label for="email">Email</label>
+            <input id="email" name="email" type="email" required autocomplete="email"></div>
+          <div class="field"><label for="sessionSelect">Session</label>
+            <select id="sessionSelect" name="session" required></select></div>
+          <button type="submit">Register</button>
+          <p id="registerMsg" class="msg" role="status"></p>
+        </form>
+      </section>
+
+      <section aria-labelledby="notice-h" class="panel">
+        <h2 id="notice-h">Change notifications</h2>
+        <ul id="notices" class="notices" aria-live="polite"></ul>
+      </section>
+    </aside>
+  </main>
+
+  <footer class="site-footer">CS344 Assignment 1, idea 32. Runs entirely in the browser; data resets on reload.</footer>
+
+  <dialog id="confirmDlg" aria-labelledby="confirm-h">
+    <form method="dialog">
+      <h2 id="confirm-h">Cancel this session?</h2>
+      <p id="confirmText"></p>
+      <div class="dlg-actions">
+        <button value="no" class="quiet" autofocus>Keep it</button>
+        <button value="yes" class="ghost">Cancel session</button>
+      </div>
+    </form>
+  </dialog>
+
+  <script src="app.js"></script>
+</body>
+</html>
